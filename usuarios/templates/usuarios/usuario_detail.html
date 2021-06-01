@@ -1,0 +1,25 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    {{etiqueta}} usuario
+{% endblock titulo %}
+
+{% block css %}
+{% endblock css %}
+    
+
+{% block contenido %}
+    <h1>{{object.first_name}}</h1>
+    <h3>{{object.username}}</h3>
+    <h4>{{object.estado}}</h4>
+    <p>{{object.municipio}}</p>
+    
+
+        
+    <a href="{% url 'usuarios:lista' %}" class="btn btn-success">Regresar</a>
+{% endblock contenido %}
+
+
+    {% block js %}
+    {% endblock js %}
+        

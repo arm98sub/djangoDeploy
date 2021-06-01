@@ -1,0 +1,20 @@
+.bouton-image:before {
+    content: "";
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: text-top;
+    background-color: transparent;
+    background-position : center center;
+    background-repeat:no-repeat;
+}
+
+.monBouton:before{
+     background-image : url(http://icons.iconarchive.com/icons/fatcow/farm-fresh/16/accept-icon.png);
+}
+
+
+.pagination>li.active>a {
+    background-color: orange !important;
+}

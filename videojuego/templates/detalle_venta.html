@@ -1,0 +1,20 @@
+{% extends 'base2.html' %}
+
+{% block titulo %}
+    Detalle de la Venta
+{% endblock titulo %}
+
+{% block css %}
+{% endblock css %}
+
+{% block contenido %}
+    
+    <h1>{{obect.articulo}}</h1>
+    <h1>{{obect.venta}}</h1>        
+    
+        
+    <a href="{% url 'videojuego:lista' %}" class="btn btn-success">Regresar</a>
+{% endblock contenido %}
+
+{% block js %}
+{% endblock js %}

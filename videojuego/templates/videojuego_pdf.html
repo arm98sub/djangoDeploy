@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de videojuegos
+{% endblock titulo %}
+    
+
+{% block contenido %}
+<h1 class="app-page-title">Lista de videojuegos</h1>   
+    <table class="table">
+        <thead>
+            <th>Título</th>
+            <th>Año</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Descripción</th>
+        </thead>
+        <tbody>
+            {% for videojuego in object_list  %}
+            <tr>
+                <td>{{videojuego.titulo}}</td>
+                <td>{{videojuego.anio}}</td>
+                <td>{{videojuego.categoria}}</td>
+                <td>{{videojuego.precio}}</td>
+                <td>{{videojuego.descripcion}}</td>
+                <td>
+
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock contenido %}
+
+
+    
+    

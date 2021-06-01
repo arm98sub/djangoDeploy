@@ -1,0 +1,142 @@
+{% extends 'base2.html' %}
+{% load static %}
+
+{% block titulo %}
+    Lista de videojuegos
+{% endblock titulo %}
+    
+
+
+<link rel="stylesheet" href="{% static 'css/estilo.css' %}">
+
+
+{% block contenido %}
+<h1 class="app-page-title">Lista de videojuegos</h1>   
+
+
+
+<div  style="text-align: right;">
+    <a style="color: black;" href="{% url 'videojuego:pdf' %}">
+   Imprimir reporte
+    <img src="{% static 'pdf1.png' %}" style="height: 40px;"  style="height: 50px;"/>
+</a>
+</div>
+<div class="app-card app-card-orders-table shadow-sm mb-5">
+    <a href="{% url 'videojuego:nuevo' %}" class="btn btn-primary">Nuevo Juego</a>
+    <hr>
+    <br>
+    <table class="table">
+        <thead>
+            <th>Título</th>
+            <th>Año</th>
+            <th>Categoría</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Descripción</th>
+            <th>Acciones</th>
+        </thead>
+        <tbody>
+          {% for videojuego in object_list  %}
+            <tr>
+                <td>{{videojuego.titulo}}</td>
+                <td>{{videojuego.anio}}</td>
+                <td>{{videojuego.categoria}}</td>
+                <td>${{videojuego.precio}}</td>
+                <td>{{videojuego.stock}}</td>
+                <td>{{videojuego.descripcion}}</td>
+                <td>
+                  {% if videojuego.stock > 0 %}
+                  <a title="Agregar al carrito" class="btn btn-warning" href="{% url 'videojuego:comprar' videojuego.id%}">
+                    <i class="fas fa-shopping-cart"></i>
+                  </a>
+                  {% else %}
+                    <div class="alert alert-warning col-5">Videojuego agotado</div>
+                  {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'videojuego:ver' videojuego.id %}" class="btn btn-primary btn-sm">Ver</a>
+                    <a href="{% url 'videojuego:editar' videojuego.id %}" class="btn btn-primary btn-sm">Editar</a>
+                    <button onclick="muestraModal('{% url 'videojuego:eliminar'  videojuego.id %}','{{videojuego.titulo}}')" 
+                        type="button" class="btn btn-danger btn-sm" 
+                        data-toggle="modal" data-target="#exampleModal">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                    <a href="{% url 'videojuego:detalle_juego_pdf' videojuego.id%}">
+                        <img src="{% static 'pdf2.png' %}" style="height: 40px;"  style="height: 50px;"/>
+                    </a> 
+                    
+                    
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+    </table>
+
+    <!----------------- PAGINTATION BOOSTRAP ------------------------------------>
+
+    <nav >
+        <ul class="pagination  justify-content-center">
+          <!-- <li class="page-item disabled"> -->
+              
+              {% if page_obj.number > 1 %}
+              <li class="page-item">
+                <a style="color: black;" class="page-link " href="?page=1"> First</a>
+              </li>
+              {% endif %}
+                  
+            
+            {% if page_obj.has_previous %}
+            <li class="page-item ">
+            <a style="color: black;" class="page-link " href="?page={{ page_obj.previous_page_number }}" tabindex="-1">Previous</a>
+            </li>
+            {% endif %}
+          
+          <li class="page-item">
+            <a class="page-link" href="?page=1"> 1</a>
+          </li>
+        
+              
+          <li  class="page-item active">
+            <a  style="color: white;" class="page-link " href="?page=2"> 2 <span class="sr-only">(current)</span></a>
+          </li>
+         
+          <li class="page-item"><a class="page-link" href="?page=3">3</a></li>
+          {% if page_obj.has_next %}
+          <li class="page-item ">
+            <a style="color: black;" class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a style="color: black;"class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+            </li>
+            
+          {% endif %}
+        </ul>
+      </nav>
+
+<!-- Modal elimina videojuego -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Confirmación</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalCuerpo" >         
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <form id="formEliminar" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock contenido %}
+
+{% block js %}
+    <script src="{% static 'js/funciones.js' %}"></script>    
+{% endblock js %}
+    
+    

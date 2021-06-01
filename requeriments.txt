@@ -1,0 +1,6 @@
+django
+Pillow
+six
+mysqlclient
+django-mysql
+django-weasyprint

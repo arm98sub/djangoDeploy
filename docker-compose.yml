@@ -1,0 +1,28 @@
+version: "3.9"
+
+services:
+    
+    db:
+        image: mysql:5.7
+        restart: always
+        environment: 
+            MYSQL_DATABASE: videojuego2
+            MYSQL_USER: root
+            MYSQL_ROOT_PASSWORD: admin123
+            MYSQL_PASSWORD: root
+        volumes: 
+            - db:/var/lib/mysql
+    app:
+        build: .
+        # command: python3 /app/manage.py migrate --noinput
+
+        command: python3 /app/manage.py runserver 0.0.0.0:8080
+        restart: always
+        ports: 
+            - 8080:8080
+        depends_on:
+            - db
+        environment:
+            - DJANGO_SETTINGS_MODULE=videojuegos.settings
+volumes: 
+    db:

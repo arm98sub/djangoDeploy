@@ -1,0 +1,18 @@
+{% extends 'base2.html' %}
+
+
+{% block titulo %}
+    Eliminar videojuego
+{% endblock titulo %}
+
+
+{% block contenido %}
+    <form method="post">
+        {% csrf_token %}
+        <p>Quieres eliminar el videojuego "{{ object }}"?</p>
+        <input type="submit" value="Sí, si quiero" class="btn btn-danger">
+        <a href="{% url 'videojuego:lista' %}" class="btn btn-info">Mejor no</a>
+    </form>
+    
+{% endblock contenido %}
+    
